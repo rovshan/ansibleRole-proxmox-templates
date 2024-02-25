@@ -6,7 +6,7 @@
     extended: true
 - name: Create VMs
   ansible.builtin.shell:
-    cmd: qm create {{ (next_vm_id | int)  + ansible_loop.index  | int }} --memory {{ templateMemory }} --core {{ templateCores }} --name {{ item.templateName }} --net0 virtio,bridge=vmbr0 --description "{{ hostvars[inventory_hostname]['dynamic_fact_for_' + item.templateName |  hash('sha1')] }} {{ item.additionalDescription | default('') }}"
+    cmd: qm create {{ (next_vm_id | int)  + ansible_loop.index  | int }} --memory {{ templateMemory }} --core {{ templateCores }} --name {{ item.templateName }} --net0 virtio,bridge=vmbr1 --description "{{ hostvars[inventory_hostname]['dynamic_fact_for_' + item.templateName |  hash('sha1')] }} {{ item.additionalDescription | default('') }}"
   register: command_result
   failed_when:
     - '"already exists" not in command_result.stderr'
